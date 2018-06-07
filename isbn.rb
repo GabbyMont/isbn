@@ -1,23 +1,31 @@
 def num_length(num)
 	new_array = []
 	full_array = []
-	
+	new_num_array = []
 	str = num.gsub(/([- ])/, '')
 	new_str = str.gsub(/[^Xx0-9 ]/, '')
 	str_length = new_str.length
 	if str_length == 10 
 		num_str = str.split(//)
+		# p num_str
 		array = num_str.join
+		# p array
 		array_length = array.length
 		if array_length == 10 && array.include?("x") == true
 			num_cap(num)
 		elsif array_length == 10
 			full_array << array.to_i
+			new_num = num_str.pop
+			joined_number = num_str.join
+			new_num_array << joined_number.to_i
+			# p new_num_array
 		else
-			"Invalid length"
+			"Invalid ISBN"
 		end
-	else
+	elsif str_length < 10 || str_length > 10
 		num_cap(num)
+	else
+		check_sum(num)
 	end
 end
 
@@ -33,32 +41,39 @@ def num_cap(num)
 		partial_array = num_str.pop
 		new_array << num_str.join.to_i
 		else num_str[0]..num_str[8] == "x"
-		"Invalid-x not on end"
+		"Invalid ISBN"
 		end
 	else
 	"Invalid ISBN"
 	end
 end
 
-# p num_length("98&2547")
-# p num_length("496(25)36")
-# p num_length("496(25)36859")
-# p num_length("192-36-567-85")
-# p num_length("192 567 2678")
-# p num_length("982547")
-# p num_length("1235789543")
-# p num_length("653256789x")
-# p num_length("8254x67898")
-# p num_length("7943%67898")
-# p num_length("25@45$633x")
+def checksum(num)
+	answer_array = []
+	new_array = []
+	full_array = []
+	new_num_array = []
+	str = num.gsub(/([- ])/, '')
+	new_str = str.gsub(/[^Xx0-9 ]/, '')
+	str_length = new_str.length
+	num_str = str.split(//)
+	match_element = num_str[9].to_i
+	# p match_element
+	numbers = num_length(num)
+  	new_num = numbers.zip([1,2,3,4,5,6,7,8,9])
+	new_num.map! do |v,i|
+	  answer = v*i
+	  answer_array << answer 	
+	end
+	  sum = answer_array.sum
 
-# p num_cap("46578")
-# p num_cap("653256789x")
-# p num_cap("8254x67898")
-# p num_cap("7943%67898")
-# p num_cap("25@45$633x")
-# p num_cap("98&2547")
-# p num_cap("496(25)36")
-# p num_cap("496(25)36859")
-# p num_cap("192-36-567-85")
-# p num_cap("192 567 2678") 
+	  remainder = sum%11
+	  # p remainder
+	  if match_element == remainder
+		"Valid ISBN"
+	else
+		"Invalid ISBN"
+	end
+end
+
+# p checksum("4836268448")
