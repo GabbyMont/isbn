@@ -123,31 +123,51 @@ class Isbn_test < Minitest::Test
 
 	def test_check_sum_1254568893
 		num = "1254568893"
-		assert_equal("Invalid ISBN",checksum(num))
+		assert_equal("Invalid ISBN",check_sum(num))
 	end
 
 	def test_check_sum_comparison_7421394761
 		num = "7421394761"
-		assert_equal("Valid ISBN",checksum(num))
+		assert_equal("Valid ISBN",check_sum(num))
 	end	
 
 	def test_check_sum_invalid_num_7943567898
 		num = "7943567898"
-		assert_equal("Invalid ISBN",checksum(num))
+		assert_equal("Invalid ISBN",check_sum(num))
 	end	
 
 	def test_check_sum_valid_num_2945017262
 		num = "2945017262"
-		assert_equal("Valid ISBN",checksum(num))
+		assert_equal("Valid ISBN",check_sum(num))
 	end	
 
 	def test_check_sum_invalid_num_4936017468
 		num = "4936017468"
-		assert_equal("Invalid ISBN",checksum(num))
+		assert_equal("Invalid ISBN",check_sum(num))
 	end	
 
 	def test_check_sum_valid_num_4836268448
 		num = "4836268448"
-		assert_equal("Valid ISBN",checksum(num))
+		assert_equal("Valid ISBN",check_sum(num))
 	end	
+
+	def test_if_last_digit_is_x_checksum_is_10
+		num = "869543256x"
+		assert_equal("Valid ISBN",check_sum(num))
+	end
+
+	def test_num_length_114_isbn13
+		num = "29504-37653862"
+		assert_equal(114,num_length(num))
+	end
+
+	def test_num_length_isbn13_121
+		num = "29@504-376525 69"
+		assert_equal(121,num_length(num))
+	end
+
+	def test_num_length_isbn13_135
+		num = "2+1!584 1 76 527 89"
+		assert_equal(135,num_length(num))
+	end
 end
