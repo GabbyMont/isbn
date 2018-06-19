@@ -29,9 +29,11 @@ def num_length(num)
 		if first_length == 10 && str.include?("x")
 			# go to the function that checks for the postion of x
 			check_x(num)
-		else
+		elsif first_length == 10 && str_length == 10
 			# else go to check_ten to find remainder, sum, and modulo
 			check_ten(num)
+		else
+			"Invalid ISBN"
 		end
 	else
 		# Else it is an Invalid ISBN
@@ -69,15 +71,20 @@ def check_thirteen(num)
 	full_array = []
 	orig_str = num.downcase
 	str = orig_str.gsub(/([- ])/, '')
+	# p "string after symbols removed #{str}"
 	new_str = str.gsub(/[^Xx0-9 ]/, '')
+	# p "new_str check_thirteen after second gsub #{new_str}"
 	num_str = new_str.split(//)
+	# p "num_str check_thirteen after split #{num_str}"
 	# Loop to change each element(that is in a string) to an integer
 	num_str.each do |x|
 		# Converts each element into integer then pushes into new array
 		full_array << x.to_i
+		# p "full array in conversion to integer #{full_array}"
 	end
 	# Pops off last element in array
 	popped = full_array.pop
+	# p "popped number #{popped}"
 	# Iterates over each index
 	full_array.each_with_index do |item,index|
 		# Checks if index is odd
@@ -140,4 +147,4 @@ def check_ten(num)
 	end
 end
 
-p check_ten("1234567891")
+p check_thirteen("978 047 0059 029")
