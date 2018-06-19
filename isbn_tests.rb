@@ -6,6 +6,11 @@ class Isbn_test < Minitest::Test
 		assert_equal(true,true)
 	end
 
+	def test_valid_isbn10
+		num = "7432456493"
+		assert_equal("Valid ISBN",check_ten(num))
+	end
+
 	def test_no_spaces
 		num = "1943 82908x"
 		assert_equal("Invalid ISBN",num_length(num))
@@ -18,17 +23,17 @@ class Isbn_test < Minitest::Test
 
 	def test_num_length
 		num = "194382908x"
-		assert_equal("Valid ISBN",num_length(num))
+		assert_equal("Invalid ISBN",check_ten(num))
 	end
 
 	def test_remove_hyphens
 		num = "1-943-829-08x"
-		assert_equal("Valid ISBN",num_length(num))
+		assert_equal("Invalid ISBN",check_ten(num))
 	end
 
 	def test_remove_symbols
-		num = "1-943-829-08x"
-		assert_equal("Valid ISBN",num_length(num))
+		num = "1-913129-088"
+		assert_equal("Invalid ISBN",check_ten(num))
 	end
 
 	def test_remove_parentheses
@@ -78,27 +83,27 @@ class Isbn_test < Minitest::Test
 
 	def test_valid_num_length_to_checkx_1
 		num = "192-36-567-85"
-		assert_equal("Valid ISBN",num_length(num)) 
+		assert_equal("Valid ISBN",check_ten(num)) 
 	end
 
 	def test_valid_num_length_2
 		num = "192 567 2678"
-		assert_equal("Valid ISBN",num_length(num))
+		assert_equal("Invalid ISBN",check_ten(num))
 	end
 
 	def test_valid_num_length_3
 		num = "1235789543"
-		assert_equal("Valid ISBN",num_length(num))
+		assert_equal("Invalid ISBN",check_ten(num))
 	end
 
 	def test_valid_num_length_4
 		num = "653256789x"
-		assert_equal("Valid ISBN",num_length(num))
+		assert_equal("Invalid ISBN",check_ten(num))
 	end
 
 	def test_valid_num_length_1
 		num = "653256789x"
-		assert_equal("Valid ISBN",num_length(num))
+		assert_equal("Invalid ISBN",check_ten(num))
 	end
 
 	def test_num_length_invalid_isbn_string
@@ -138,37 +143,37 @@ class Isbn_test < Minitest::Test
 
 	def test_num_length_1254568893
 		num = "1254568893"
-		assert_equal("Valid ISBN",num_length(num))
+		assert_equal("Invalid ISBN",check_ten(num))
 	end
 
 	def test_num_length_comparison_7421394761
 		num = "7421394761"
-		assert_equal("Valid ISBN",num_length(num))
+		assert_equal("Valid ISBN",check_ten(num))
 	end	
 
 	def test_num_length_valid_num_7943567898
 		num = "8943567898"
-		assert_equal("Valid ISBN",num_length(num))
+		assert_equal("Invalid ISBN",check_ten(num))
 	end	
 
 	def test_num_length_valid_num_2945017262
 		num = "2945017262"
-		assert_equal("Valid ISBN",num_length(num))
+		assert_equal("Valid ISBN",check_ten(num))
 	end	
 
 	def test_num_length_valid_num_4936017468
 		num = "3-936017-46-8"
-		assert_equal("Valid ISBN",num_length(num))
+		assert_equal("Valid ISBN",check_ten(num))
 	end	
 
 	def test_num_length_valid_num_4836268448
 		num = "4836268448"
-		assert_equal("Valid ISBN",num_length(num))
+		assert_equal("Valid ISBN",check_ten(num))
 	end	
 
 	def test_if_last_digit_is_x_checksum_is_10
 		num = "869543256x"
-		assert_equal("Valid ISBN",num_length(num))
+		assert_equal("Valid ISBN",check_ten(num))
 	end
 
 	def test_num_length_8_isbn13
@@ -249,5 +254,15 @@ class Isbn_test < Minitest::Test
 	def test_num_length_word
 		num = "word"
 		assert_equal("Invalid ISBN",num_length(num))
+	end
+
+	def test_check_x_less_than_10
+		num = "7820"
+		assert_equal("Invalid ISBN",check_x(num))
+	end
+
+	def test_check_x_less_than_10
+		num = "7820"
+		assert_equal("Invalid ISBN",check_x(num))
 	end
 end
