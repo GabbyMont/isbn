@@ -1,25 +1,40 @@
+
 def num_length(num)
 	new_array = []
 	full_array = []
 	new_num_array = []
+	# All letters in isbn will be converted to a lowercase character for filtration
 	orig_str = num.downcase
+	# First gsub removes symbols
 	str = orig_str.gsub(/([- ])/, '')
+	# Gets length of the string after gsub that removes symbols
 	first_length = str.length
+	# new_str gsub keeps all numbers and letters
 	new_str = str.gsub(/[^Xx0-9 ]/, '')
+	# Gets length after removed symbols and remaining letters/digits 
 	str_length = new_str.length
+	# If str_length(length after both gsubs) is equal to 13 then continue to next conditional
 	if str_length == 13
+		# If first_length(length after symbols are removed but before "x"'s and numbers are kept) is greater than 13...
 		if first_length > 13
-			"Invalid length-over 13"
+			#...then it is an invalid isbn
+			"Invalid ISBN"
 		else 
+			# Else go to the function that checks for isbn13
 			check_thirteen(num)
 		end
+	# Else if the first_length(length after symbols are removed) is equal to 10 then go to folling conditional
 	elsif first_length == 10 
-		if first_length == 10 && str.include?("x") == true
+		# If length is 10 and the string includes an x then...
+		if first_length == 10 && str.include?("x")
+			# go to the function that checks for the postion of x
 			check_x(num)
-		else 
+		else
+			# else go to check_ten to find remainder, sum, and modulo
 			check_ten(num)
 		end
 	else
+		# Else it is an Invalid ISBN
 		"Invalid ISBN"
 	end
 end
@@ -30,20 +45,24 @@ def check_x(num)
 	orig_str = num.downcase
 	str = orig_str.gsub(/([- ])/, '')
 	new_str = str.gsub(/[^Xx0-9 ]/, '')
+	# Splits single digit into multiple charcters in individual strings. Ex: [1234] => ['1','2','3','4']
 	num_str = new_str.split(//)
-	if num_str.length == 10 && num_str.include?("x") == true
-		if num_str[0] == "x"
-			"Invalid ISBN"
-		elsif num_str[9] == "x"
+	# If the length is 10 and the string includes 'x' then continue to next conditional
+	if num_str.length == 10 && num_str.include?("x")
+		# If the x is located at the last position then go to check_ten function
+		if num_str[9] == "x" && num_str[0] != "x"
 			check_ten(num)
+		# Else if the array contains an x in any other position then invalid message is given
 		else num_str[1]..num_str[8]
 			"Invalid ISBN"
 		end
 	else
-	check_ten(num)
+		# Else go to check_ten function
+		check_ten(num)
 	end
 end
 
+# This function is for isbn 13 only
 def check_thirteen(num)
 	odds = []
 	evens = []
@@ -52,54 +71,73 @@ def check_thirteen(num)
 	str = orig_str.gsub(/([- ])/, '')
 	new_str = str.gsub(/[^Xx0-9 ]/, '')
 	num_str = new_str.split(//)
+	# Loop to change each element(that is in a string) to an integer
 	num_str.each do |x|
+		# Converts each element into integer then pushes into new array
 		full_array << x.to_i
 	end
+	# Pops off last element in array
 	popped = full_array.pop
+	# Iterates over each index
 	full_array.each_with_index do |item,index|
+		# Checks if index is odd
 		if (index.odd?)
+			# If so then multiply by 3 and psuh into odds array
 			odds.push(item*3)
+		# Else if the index is even then push into evens array
 		else (index.even?)
-			evens.push(item*1)
+			evens.push(item)
 		end
 	end
+	# Gets sum of each array then adds both together
 	sum = odds.sum+evens.sum
+	# Gets modulo of the sum 
 	mod = sum % 10 
+	# Subtracts 10 from the mod
 	remainder = 10-mod
+	# If the popped off element is equal to the remainder then give valid isbn message
 	if popped == remainder
-		"Result-Valid ISBN"
+		"Valid ISBN"
+	# Else the isbn is invalid
 	else
-		"Result-Invalid ISBN"
+		"Invalid ISBN"
 	end
 end
 
+# This function is for isbn 10
 def check_ten(num)
-	answer_array = []
 	new_array = []
 	full_array = []
 	new_num_array = []
+	value_arr = []
 	orig_str = num.downcase
 	str = orig_str.gsub(/([- ])/, '')
 	new_str = str.gsub(/[^Xx0-9 ]/, '')
 	num_str = new_str.split(//)
+	# Pops off last element
 	popped_element = num_str.pop
+	# Converts popped element into integer
 	match_element = popped_element.to_i
-	new_array << num_str.join
-	new_num_str = new_array.join
-	int = new_num_str.to_i
-	new_num_array << int
-  	new_num = new_num_array.zip([1,2,3,4,5,6,7,8,9])
-	new_num.map! do |v,i|
-	  answer = v*i
-	  answer_array << answer 	
+	num_str.each do |x|
+		# Converts each element into integer then pushes into new array
+		full_array << x.to_i
 	end
-	sum = answer_array.sum
+	full_array.each_with_index.map do |value,index|
+		# Starts at index 1 instead of 0
+		index +=1
+		# Multiplies the element by the index and pushes into new array
+		value_arr << value*index
+	end
+	# Gets sum of values in array
+	sum = value_arr.sum
 	remainder = sum%11
 	if match_element == remainder
-		"Result-Valid ISBN"
+		"Valid ISBN"
 	elsif popped_element == "x" && remainder == 10
-		"Result-Valid ISBN"
+		"Valid ISBN"
 	else
-		"Result-Invalid ISBN"
+		"Invalid ISBN"
 	end
 end
+
+p check_ten("1234567891")
