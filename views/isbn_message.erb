@@ -1,4 +1,5 @@
 <h2><div>Valid or Invalid ISBN Result</div></h2>
+<h3><%=num%></h3>
 <h3><font color="#ff0000"><%=mod_num%></font></h3>
 <form method="post" action="second_page">
 </form>
@@ -6,3 +7,7 @@
 <form method="get" action="redo">
 	<input type="submit" value ="Enter Another ISBN">
 </form></p></h2>
+
+<% data.each do |i| %>
+	<%=i[0]%> - <%=i[1]%><br>
+<%end%>

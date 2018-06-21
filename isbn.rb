@@ -1,4 +1,3 @@
-
 def num_length(num)
 	new_array = []
 	full_array = []
@@ -147,4 +146,35 @@ def check_ten(num)
 	end
 end
 
-p check_thirteen("978 047 0059 029")
+
+# p check_thirteen("978 047 0059 029")
+
+
+
+# def csv_open(isbn,status)
+# 	isbn_num = []
+# 	data = CSV.read("isbn/isbn_file.csv")
+# 	data.each do |x|
+# 		csv_num_length = num_length(x[1])
+# 		p "I am csv_num_length #{csv_num_length}"
+# 		isbn_num << csv_num_length
+# 		p "I am the isbn num #{isbn_num}"
+# 	end
+
+# 	counter = 0
+# 	isbn_num.each do  |x|
+# 		data[counter] << x
+# 		p "data counter #{data[counter]}"
+# 		x += 1
+# 		p "x #{x}"
+# 	end
+
+
+# 	CSV.open('isbn_file.csv', 'wb') do |csv|
+# 		csv << ["ISBN", "Status"]
+# 		csv << ["#{isbn}", "#{valid}"]
+# 		p "csv #{csv}"
+# 	end
+# end
+
+# csv_open("1-943-829-08X", "Valid ISBN")
