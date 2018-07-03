@@ -2,8 +2,10 @@ def num_length(num)
 	new_array = []
 	full_array = []
 	new_num_array = []
+	p "i am num  #{num}"
 	# All letters in isbn will be converted to a lowercase character for filtration
 	orig_str = num.downcase
+	p "i am orig str #{orig_str}"
 	# First gsub removes symbols
 	str = orig_str.gsub(/([- ])/, '')
 	# Gets length of the string after gsub that removes symbols
@@ -77,7 +79,7 @@ def check_thirteen(num)
 	# p "num_str check_thirteen after split #{num_str}"
 	# Loop to change each element(that is in a string) to an integer
 	num_str.each do |x|
-		# Converts each element into integer then pushes into new array
+		# Converts each element into\o9 integer then pushes into new array
 		full_array << x.to_i
 		# p "full array in conversion to integer #{full_array}"
 	end
@@ -104,7 +106,6 @@ def check_thirteen(num)
 	# If the popped off element is equal to the remainder then give valid isbn message
 	if popped == remainder
 		"Valid ISBN"
-	# Else the isbn is invalid
 	else
 		"Invalid ISBN"
 	end
@@ -146,35 +147,4 @@ def check_ten(num)
 	end
 end
 
-
-# p check_thirteen("978 047 0059 029")
-
-
-
-# def csv_open(isbn,status)
-# 	isbn_num = []
-# 	data = CSV.read("isbn/isbn_file.csv")
-# 	data.each do |x|
-# 		csv_num_length = num_length(x[1])
-# 		p "I am csv_num_length #{csv_num_length}"
-# 		isbn_num << csv_num_length
-# 		p "I am the isbn num #{isbn_num}"
-# 	end
-
-# 	counter = 0
-# 	isbn_num.each do  |x|
-# 		data[counter] << x
-# 		p "data counter #{data[counter]}"
-# 		x += 1
-# 		p "x #{x}"
-# 	end
-
-
-# 	CSV.open('isbn_file.csv', 'wb') do |csv|
-# 		csv << ["ISBN", "Status"]
-# 		csv << ["#{isbn}", "#{valid}"]
-# 		p "csv #{csv}"
-# 	end
-# end
-
-# csv_open("1-943-829-08X", "Valid ISBN")
+# p num_length('92384767382')

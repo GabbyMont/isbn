@@ -265,4 +265,14 @@ class Isbn_test < Minitest::Test
 		num = "782067"
 		assert_equal("Invalid ISBN",num_length(num))
 	end
+
+	def test_valid_isbn_length_13_digits
+		num = "1748193751185"
+		assert_equal("Valid ISBN",num_length(num))
+	end
+
+	def test_valid_isbn_10_digits_only
+		num = "6318312471"
+		assert_equal("Valid ISBN", num_length(num))
+	end
 end
