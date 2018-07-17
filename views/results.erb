@@ -1,26 +1,22 @@
 <body>
-    <h1 class="color "><strong>Here are all of your searched ISBN numbers:</strong></h1>
+    <h1 class="color "><strong>Here are all of the previously searched ISBN numbers:</strong></h1>
 
     <h2><% CSV.open('isbn_file2.csv', 'w') do |csv| %>
          <% CSV.read('isbn_file.csv').uniq.each { |r| csv << r } %>
     <% end %>
     <% connect2 %>
 
-
     <% CSV.foreach("isbn_file.csv") do |row| %>
-        <div class="row transbox">
-            <div class=" valid column ">
+        <div class="row ">
+            <div class=" valid column transbox">
                 <%= row[0] %>
             </div>
-            <div class="valid column">
+            <div class="valid column transbox">
                 <%= row[1] %>
             </div>
         </div>
     <% end %>
     <br><br>
-
-
-    <button onclick="window.location.href='/'">Go back</button>
+    <button class="button button-shadow" onclick="window.location.href='/'">Go back</button>
 </h2>
 </body>
-</html>

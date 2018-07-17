@@ -1,16 +1,9 @@
 <body>
-<h2 class="color"><div>Valid or Invalid ISBN Result:</div></h2>
+<h2 class="color"><div>ISBN Result:</div></h2>
 <h2 class="color"><%=mod_num%></h2>
 <h2 class="color"><%=num%></h2>
 
-<form method="post" action="second_page">
-</form>
-<h3><p class="center color">Select "Enter Another ISBN" to add another ISBN:
-<form method="get" action="redo">
-	<input type="submit" value ="Enter ISBN">
-</form></p></h3>
+<button class="button button-shadow" onclick="window.location.href='/'">Enter Another ISBN</button>
+<button class="button button-shadow" onclick="window.location.href='/results'">History</button>
 
-<form method="get" action="results">
-	<input type="submit" value="History">
-</form>
 </body>
